@@ -1,0 +1,50 @@
+---
+title: "Create a web page using R Markdown and Leaflet."
+author: "Olivier Detandt"
+date: "25 October 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+##Introduction
+
+This is an Coursera project defined as follow=
+"Create a web page using R Markdown that features a map created with Leaflet.
+
+Host your webpage on either GitHub Pages, RPubs, or NeoCities.
+
+Your webpage must contain the date that you created the document, and it must contain a map created with Leaflet. We would love to see you show off your creativity!"
+
+
+
+## Data plotted
+
+The data used come from http://www.worldatlas.com/articles/most-dangerous-cities-in-the-united-states.html
+
+This show the most Dangerous Cities In The United States
+
+
+
+```{r,wrnings=FALSE, message=FALSE }
+setwd("C:/Users/olivier.detandt/Documents/Doc/DataScience/Product Development")
+data<-read.csv("Map.csv",sep=";")
+
+library(leaflet)
+my_map <- data %>%
+        leaflet() %>%
+        addTiles() %>%
+        setView(lng = -85, lat = 40, zoom = 5) %>%
+
+        addMarkers(popup = "Test", 
+                   lng = data$Lat, 
+                   lat = data$Long)%>% 
+        addCircles(weight=1,radius=sqrt(data$HomicieRate)*30000)
+
+my_map
+```
+
+
